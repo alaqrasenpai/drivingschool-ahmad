@@ -11,7 +11,7 @@ const AnswerSchema = new Schema({
         required: true
     },
     QUASTION_ID: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
         trim: true,
         required: true
     },

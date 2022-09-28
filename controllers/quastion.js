@@ -20,6 +20,23 @@ module.exports = {
             res.json({ error: error })
         })
     },
+
+    showWithAnswers: (req, res) => {
+        // let quastionId = new ObjectID(req.body.qid);
+        console.log("hello world");
+        Quastion.aggregate([{
+            $lookup: {
+                from: "answers",
+                localField: "_id",
+                foreignField: "QUASTION_ID",
+                as: "quastion_answers"
+            }
+        }]).exec(function(err, r) {
+            res.json({ data: r });
+        })
+
+    },
+
     update: (req, res) => {
 
         let quastionID = req.body.qid

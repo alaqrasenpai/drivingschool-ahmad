@@ -44,6 +44,7 @@ module.exports = {
         })
     },
     create: (req, res) => {
+        console.log("test");
         let answer = new Answer({
             ANSWER_DATA: req.body.DATA,
             QUASTION_ID: req.body.QUASTION_ID,
