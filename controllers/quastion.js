@@ -32,7 +32,7 @@ module.exports = {
                 as: "quastion_answers"
             }
         }]).exec(function(err, r) {
-            res.json({ data: r });
+            res.json(r);
         })
 
     },
