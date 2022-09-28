@@ -16,8 +16,7 @@ const QuastiontSchema = new Schema({
     },
     audio_url: {
         type: String,
-        trim: true,
-        required: true
+        trim: true
     },
     licens_type: {
         type: String,

@@ -17,8 +17,7 @@ const AnswerSchema = new Schema({
     },
     audio_url: {
         type: String,
-        trim: true,
-        required: true
+        trim: true
     },
     STATUS: {
         type: Number,
