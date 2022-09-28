@@ -1,0 +1,73 @@
+const Ads = require("../models/ads")
+var ObjectID = require('mongodb').ObjectID;
+
+
+module.exports = {
+    index: (req, res) => {
+        Ads.find({}).then(Answer => {
+            res.json(Answer)
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
+    show: (req, res) => {
+        let adsID = req.body.aID
+        let objId = new ObjectID(adsID);
+        Ads.findById(objId).then(Ads => {
+            res.json({ Ads })
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
+    update: (req, res) => {
+
+        let adsID = req.body.aID
+        let objId = new ObjectID(adsID);
+
+        let answerInfo = {
+            ANSWER_DATA: req.body.DATA,
+            QUASTION_ID: req.body.QUASTION_ID,
+            audio_url: req.body.audio_url,
+            STATUS: req.body.STATUS,
+            // updateDate: Date.now()
+        }
+        Answer.findByIdAndUpdate(answerID, { $set: answerInfo }).then(post => {
+            res.json({ message: "Answer information updated" })
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
+    delete: (req, res) => {
+        let answerID = req.body.aid
+        Answer.findByIdAndRemove(answerID).then(() => {
+            res.json({ message: "answer Is deleted" })
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
+    create: (req, res) => {
+        let answer = new Answer({
+            ANSWER_DATA: req.body.DATA,
+            QUASTION_ID: req.body.QUASTION_ID,
+            audio_url: req.body.audio_url,
+            STATUS: req.body.STATUS,
+            // createDate: Date.now(),
+            // updateDate: Date.now()
+        })
+        answer.save((error) => {
+            if (error)
+                res.json({ error: error })
+            else {
+                res.json({ message: "Answer Added" })
+            }
+        })
+    },
+    showByQuastionId: (req, res) => {
+        let qID = req.body.qid
+        Answer.find({ QUASTION_ID: qID }).then(Answer => {
+            res.json(Answer)
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    }
+}
