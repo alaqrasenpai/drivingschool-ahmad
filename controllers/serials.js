@@ -13,8 +13,11 @@ module.exports = {
     },
     checkStatus: (req, res) => {
         Serial.find({
-            end_date:{
+            end_date: {
                 $lte: endOfDay(new Date())
+            },
+            status: {
+                $eq: 0
             }
         }).then(Serial => {
             res.json(Serial)
