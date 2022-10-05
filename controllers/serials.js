@@ -11,19 +11,31 @@ module.exports = {
             res.json({ error: error })
         })
     },
-    checkStatus: (req, res) => {
+    getbykey: (req, res) => {
         Serial.find({
-            end_date: {
-                $lte: endOfDay(new Date())
-            },
-            status: {
-                $eq: 0
+            serialkey: {
+                $eq: req.body.sKey
             }
         }).then(Serial => {
             res.json(Serial)
         }).catch(error => {
             res.json({ error: error })
         })
+    },
+    showWithUser: (req, res) => {
+        // let quastionId = new ObjectID(req.body.qid);
+        // console.log("hello world");
+        Serial.aggregate([{
+            $lookup: {
+                from: "students",
+                localField: "_id",
+                foreignField: "SerialId",
+                as: "serial_users"
+            }
+        }]).exec(function(err, r) {
+            res.json(r);
+        })
+
     },
     show: (req, res) => {
         let serialID = new ObjectID(req.body.sID);
