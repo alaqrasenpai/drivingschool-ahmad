@@ -1,10 +1,22 @@
 const Serial = require("../models/serials")
 var ObjectID = require('mongodb').ObjectID;
+var endOfDay = 'date-fns/endOfDay'
 
 
 module.exports = {
     index: (req, res) => {
         Serial.find({}).then(Serial => {
+            res.json(Serial)
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
+    checkStatus: (req, res) => {
+        Serial.find({
+            end_date:{
+                $lte: endOfDay(new Date())
+            }
+        }).then(Serial => {
             res.json(Serial)
         }).catch(error => {
             res.json({ error: error })
