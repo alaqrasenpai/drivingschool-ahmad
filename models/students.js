@@ -21,7 +21,7 @@ const StudentSchema = new Schema({
         type: Number
     },
     SerialId: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
         trim: true
     },
 

@@ -20,13 +20,15 @@ module.exports = {
         })
     },
     update: (req, res) => {
+        let sID = req.body.serialid
+        let objId = new ObjectID(sID);
 
         let studentId = req.body.sID
         let studnetInfo = {
             First_name: req.body.firstname,
             Last_name: req.body.lastname,
             Phone_number: req.body.phonenumber,
-            SerialId: req.body.serialid,
+            SerialId: objId,
             licens_type: req.body.licenstype,
 
         }
@@ -45,11 +47,14 @@ module.exports = {
         })
     },
     create: (req, res) => {
+        let sID = req.body.serialid
+        let objId = new ObjectID(sID);
+
         let studnet = new Students({
             First_name: req.body.firstname,
             Last_name: req.body.lastname,
             Phone_number: req.body.phonenumber,
-            SerialId: req.body.serialid,
+            SerialId: objId,
             licens_type: req.body.licenstype,
         })
         studnet.save((error) => {
