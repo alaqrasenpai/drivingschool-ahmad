@@ -10,6 +10,21 @@ module.exports = {
             }
         })
     },
+    checkdata: (req, res) => {
+        Trainer.find({
+            username: {
+                $eq: req.body.uname
+            },
+            password: {
+                $eq: req.body.password
+            }
+        }, (error, trainers) => {
+            if (error) console.log(`ther was an error :${error}`)
+            else {
+                res.render("Trainers.ejs", { trainers: trainers });
+            }
+        })
+    },
     show: (req, res) => {
         let trianerId = new ObjectID(req.body.tID);
 
