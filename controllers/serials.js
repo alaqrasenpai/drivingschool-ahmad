@@ -52,7 +52,21 @@ module.exports = {
         })
 
     },
+    showUserByKey: (req, res) => {
+        let serialKey = req.body.skey;
+        // console.log("hello world");
+        Serial.aggregate([{
+            $lookup: {
+                from: "students",
+                localField: "_id",
+                foreignField: "SerialId",
+                as: "serial_users"
+            }
+        }]).exec(function(err, r) {
+            res.json(r.filter(x => x.serialkey === serialKey));
+        })
 
+    },
     show: (req, res) => {
         let serialID = new ObjectID(req.body.sID);
         Serial.findById(serialID).then(Serial => {
