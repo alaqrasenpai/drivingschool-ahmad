@@ -37,6 +37,22 @@ module.exports = {
         })
 
     },
+    showByUserID: (req, res) => {
+        let userID = new ObjectID(req.body.uid);
+        // console.log("hello world");
+        Serial.aggregate([{
+            $lookup: {
+                from: "students",
+                localField: "_id",
+                foreignField: "SerialId",
+                as: "serial_users"
+            }
+        }]).exec(function(err, r) {
+            res.json(r.filter(x => x.serial_users._id === userID));
+        })
+
+    },
+
     show: (req, res) => {
         let serialID = new ObjectID(req.body.sID);
         Serial.findById(serialID).then(Serial => {
