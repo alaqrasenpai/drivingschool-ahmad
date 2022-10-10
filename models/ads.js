@@ -2,39 +2,41 @@ const mongoose = require("mongoose"),
     { Schema } = mongoose
 
 const AdsSchema = new Schema({
-    ID: {
-        type: Number
-    },
-    First_name: {
+
+    Ad_title: {
         type: String,
         trim: true,
         required: true
     },
-    Last_name: {
+    ad_info: {
         type: String,
         trim: true,
         required: true
     },
-    username: {
+    ad_image: {
         type: String,
         trim: true,
         required: true
     },
-    password: {
-        type: String,
+    start_date: {
+        type: Date,
         trim: true,
         required: true
     },
-    Phone_number: {
-        type: String,
+    end_date: {
+        type: Date,
         trim: true,
         required: true
     },
 
 
-    RULE: {
-        type: Number,
+    ad_owner: {
+        type: String,
         trim: true,
+        required: true
+    },
+    ad_admin: {
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     }
 

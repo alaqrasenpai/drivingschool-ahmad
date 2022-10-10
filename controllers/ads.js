@@ -12,8 +12,17 @@ module.exports = {
     },
     show: (req, res) => {
         let adsID = req.body.aID
-        let objId = new ObjectID(adsID);
-        Ads.findById(objId).then(Ads => {
+        Ads.findById(adsID).then(Ads => {
+            res.json({ Ads })
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
+    show_byOwner: (req, res) => {
+        let owner_ID = req.body.admin_id;
+        let objId = new ObjectID(owner_ID);
+
+        Ads.find({ "ad_admin": objId }).then(Ads => {
             res.json({ Ads })
         }).catch(error => {
             res.json({ error: error })
@@ -24,50 +33,46 @@ module.exports = {
         let adsID = req.body.aID
         let objId = new ObjectID(adsID);
 
-        let answerInfo = {
-            ANSWER_DATA: req.body.DATA,
-            QUASTION_ID: req.body.QUASTION_ID,
-            audio_url: req.body.audio_url,
-            STATUS: req.body.STATUS,
-            // updateDate: Date.now()
+        let adInfo = {
+            Ad_title: req.body.title,
+            ad_info: req.body.info,
+            ad_image: req.body.img,
+            start_date: req.body.start_date,
+            end_date: req.body.end_date,
+            ad_owner: req.body.owner_name,
+            ad_admin: req.body.admin_id
+                // updateDate: Date.now()
         }
-        Answer.findByIdAndUpdate(answerID, { $set: answerInfo }).then(post => {
-            res.json({ message: "Answer information updated" })
+        Ads.findByIdAndUpdate(objId, { $set: adInfo }).then(post => {
+            res.json({ message: "Ad information updated" })
         }).catch(error => {
             res.json({ error: error })
         })
     },
     delete: (req, res) => {
-        let answerID = req.body.aid
-        Answer.findByIdAndRemove(answerID).then(() => {
-            res.json({ message: "answer Is deleted" })
+        let adId = req.body.aid
+        Ads.findByIdAndRemove(adId).then(() => {
+            res.json({ message: "Ad Is deleted" })
         }).catch(error => {
             res.json({ error: error })
         })
     },
     create: (req, res) => {
-        let answer = new Answer({
-            ANSWER_DATA: req.body.DATA,
-            QUASTION_ID: req.body.QUASTION_ID,
-            audio_url: req.body.audio_url,
-            STATUS: req.body.STATUS,
-            // createDate: Date.now(),
-            // updateDate: Date.now()
+        let ad = new Ads({
+            Ad_title: req.body.title,
+            ad_info: req.body.info,
+            ad_image: req.body.img,
+            start_date: req.body.start_date,
+            end_date: req.body.end_date,
+            ad_owner: req.body.owner_name,
+            ad_admin: req.body.admin_id
         })
-        answer.save((error) => {
+        ad.save((error) => {
             if (error)
                 res.json({ error: error })
             else {
-                res.json({ message: "Answer Added" })
+                res.json({ message: "ad Added" })
             }
-        })
-    },
-    showByQuastionId: (req, res) => {
-        let qID = req.body.qid
-        Answer.find({ QUASTION_ID: qID }).then(Answer => {
-            res.json(Answer)
-        }).catch(error => {
-            res.json({ error: error })
         })
     }
 }
