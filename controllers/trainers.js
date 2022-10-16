@@ -10,6 +10,14 @@ module.exports = {
             }
         })
     },
+    count: (req, res) => {
+        Trainer.find({}, (error, trainers) => {
+            if (error) console.log(`ther was an error :${error}`)
+            else {
+                res.render({ "Count": trainers.count });
+            }
+        })
+    },
     checkdata: (req, res) => {
         Trainer.find({
             username: {

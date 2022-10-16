@@ -7,4 +7,6 @@ router.get("/searchbyqid", AnswerController.showByQuastionId)
 router.put("/update", AnswerController.update)
 router.delete("/delete", AnswerController.delete)
 router.post("/create", AnswerController.create)
+router.post("/count", AnswerController.count)
+
 module.exports = router

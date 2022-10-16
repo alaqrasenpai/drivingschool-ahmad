@@ -9,6 +9,13 @@ module.exports = {
             res.json({ error: error })
         })
     },
+    count: (req, res) => {
+        Students.find({}).then(Students => {
+            res.json("Count": Students.count)
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
     show: (req, res) => {
         let studentId = new ObjectID(req.body.sID);
 

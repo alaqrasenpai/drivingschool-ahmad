@@ -11,6 +11,13 @@ module.exports = {
             res.json({ error: error })
         })
     },
+    count: (req, res) => {
+        Serial.find({}).then(Serial => {
+            res.json({ "Count": Serial.count })
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
     getbykey: (req, res) => {
         Serial.find({
             serialkey: {

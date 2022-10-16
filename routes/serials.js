@@ -10,4 +10,6 @@ router.get("/getuserbykey", SerialsController.showUserByKey)
 router.put("/update", SerialsController.update)
 router.delete("/delete", SerialsController.delete)
 router.post("/create", SerialsController.create)
+router.post("/count", SerialsController.count)
+
 module.exports = router

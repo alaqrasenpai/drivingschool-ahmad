@@ -10,6 +10,13 @@ module.exports = {
             res.json({ error: error })
         })
     },
+    count: (req, res) => {
+        Tutorial.find({}).then(Tutorial => {
+            res.json({ "Count": Tutorial.count })
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
     show: (req, res) => {
         let tutorialId = req.body.tid;
 

@@ -28,6 +28,14 @@ module.exports = {
             res.json({ error: error })
         })
     },
+    count: (req, res) => {
+
+        Ads.find({}).then(Ads => {
+            res.json({ "number": Ads.count })
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
     update: (req, res) => {
 
         let adsID = req.body.aID

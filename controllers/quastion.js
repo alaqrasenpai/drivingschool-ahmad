@@ -10,6 +10,13 @@ module.exports = {
             res.json({ error: error })
         })
     },
+    count: (req, res) => {
+        Quastion.find({}).then(Quastion => {
+            res.json({ "Count": Quastion.count })
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
     show: (req, res) => {
         let quastionId = new ObjectID(req.body.qid);
 

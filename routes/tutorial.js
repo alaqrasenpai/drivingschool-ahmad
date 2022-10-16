@@ -5,5 +5,7 @@ router.get("/", TutorialController.index)
 router.get("/search", TutorialController.show)
 router.put("/update", TutorialController.update)
 router.delete("/delete", TutorialController.delete)
+router.post("/count", TutorialController.count)
+
 router.post("/create", TutorialController.create)
 module.exports = router
