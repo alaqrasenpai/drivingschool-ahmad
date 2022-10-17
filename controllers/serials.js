@@ -13,7 +13,7 @@ module.exports = {
     },
     count: (req, res) => {
         Serial.find({}).then(Serial => {
-            res.json({ "Count": Serial.count })
+            res.json({ "Count": Serial.length })
         }).catch(error => {
             res.json({ error: error })
         })

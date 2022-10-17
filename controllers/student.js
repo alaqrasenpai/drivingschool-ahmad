@@ -11,7 +11,7 @@ module.exports = {
     },
     count: (req, res) => {
         Students.find({}).then(Students => {
-            res.json("Count": Students.count)
+            res.json({ "Count": Students.length })
         }).catch(error => {
             res.json({ error: error })
         })

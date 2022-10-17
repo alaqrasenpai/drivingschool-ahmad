@@ -43,4 +43,4 @@ const AdsSchema = new Schema({
 
 })
 
-module.exports = mongoose.model("Trainer", TrainerSchema)
+module.exports = mongoose.model("Ads", AdsSchema)

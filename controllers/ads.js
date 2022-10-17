@@ -1,4 +1,4 @@
-const Ads = require("../models/ads")
+const Ads = require("../models/ads");
 var ObjectID = require('mongodb').ObjectID;
 
 
@@ -31,7 +31,7 @@ module.exports = {
     count: (req, res) => {
 
         Ads.find({}).then(Ads => {
-            res.json({ "number": Ads.count })
+            res.json({ "Count": Ads.length })
         }).catch(error => {
             res.json({ error: error })
         })

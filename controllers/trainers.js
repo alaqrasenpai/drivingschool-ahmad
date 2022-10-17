@@ -14,7 +14,7 @@ module.exports = {
         Trainer.find({}, (error, trainers) => {
             if (error) console.log(`ther was an error :${error}`)
             else {
-                res.render({ "Count": trainers.count });
+                res.render({ "Count": trainers.length });
             }
         })
     },

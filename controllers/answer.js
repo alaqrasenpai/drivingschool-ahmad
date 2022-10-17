@@ -12,7 +12,7 @@ module.exports = {
     },
     count: (req, res) => {
         Answer.find({}).then(Answer => {
-            res.json({ "Count": Answer.count })
+            res.json({ "Count": Answer.length })
         }).catch(error => {
             res.json({ error: error })
         })
