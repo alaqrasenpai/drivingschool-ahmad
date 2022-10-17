@@ -8,6 +8,6 @@ router.get("/:uid", UserController.show)
 router.put("/:uid/update", UserController.update)
 router.delete("/:uid/delete", UserController.delete)
 router.post("/create", UserController.create)
-router.post("/count", UserController.count)
+router.get("/count", UserController.count)
 
 module.exports = router
