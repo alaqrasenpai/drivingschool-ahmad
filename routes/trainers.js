@@ -7,6 +7,6 @@ router.get("/checkdata", TrainersController.checkdata)
 router.put("/update", TrainersController.update)
 router.delete("/delete", TrainersController.delete)
 router.post("/create", TrainersController.create)
-router.post("/count", TrainersController.count)
+router.get("/count", TrainersController.count)
 
 module.exports = router
