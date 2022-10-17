@@ -7,5 +7,5 @@ router.get("/searcbyowner", AdsController.show_byOwner)
 router.put("/update", AdsController.update)
 router.delete("/delete", AdsController.delete)
 router.post("/create", AdsController.create)
-router.post("/count", AdsController.count)
+router.get("/count", AdsController.count)
 module.exports = router
