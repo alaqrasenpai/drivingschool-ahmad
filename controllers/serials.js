@@ -46,7 +46,7 @@ module.exports = {
     },
     showByUserID: (req, res) => {
         let userID = new ObjectID(req.body.uid);
-        // console.log("hello world");
+        console.log(userID);
         Serial.aggregate([{
             $lookup: {
                 from: "students",
@@ -55,7 +55,7 @@ module.exports = {
                 as: "serial_users"
             }
         }]).exec(function(err, r) {
-            res.json(r.filter(x => x.serial_users._id === userID));
+            res.json(r.filter(x => x.serial_users[0]._id == req.body.uid));
         })
 
     },
