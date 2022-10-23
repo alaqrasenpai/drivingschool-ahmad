@@ -3,19 +3,17 @@ var ObjectID = require('mongodb').ObjectID;
 
 module.exports = {
     index: (req, res) => {
-        Trainer.find({}, (error, trainers) => {
-            if (error) console.log(`ther was an error :${error}`)
-            else {
-                res.render("Trainers.ejs", { trainers: trainers });
-            }
+        Trainer.find({}).then(Trainer => {
+            res.json(Trainer)
+        }).catch(error => {
+            res.json({ error: error })
         })
     },
     count: (req, res) => {
-        Trainer.find({}, (error, trainers) => {
-            if (error) console.log(`ther was an error :${error}`)
-            else {
-                res.render({ "Count": trainers.length });
-            }
+        Trainer.find({}).then(Trainer => {
+            res.json({ "Count": Trainer.length })
+        }).catch(error => {
+            res.json({ error: error })
         })
     },
     checkdata: (req, res) => {
@@ -26,12 +24,13 @@ module.exports = {
             password: {
                 $eq: req.body.password
             }
-        }, (error, trainers) => {
-            if (error) console.log(`ther was an error :${error}`)
-            else {
-                res.render("Trainers.ejs", { trainers: trainers });
-            }
+        }).then(Trainer => {
+            res.json(Trainer)
+        }).catch(error => {
+            res.json({ error: error })
         })
+
+
     },
     show: (req, res) => {
         let trianerId = new ObjectID(req.body.tID);
