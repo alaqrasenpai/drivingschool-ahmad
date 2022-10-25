@@ -29,8 +29,12 @@ const StudentSchema = new Schema({
         type: Number,
         trim: true,
         required: true
+    },
+    is_student: {
+        type: Number,
+        trim: true,
+        required: true
     }
-
 
 })
 

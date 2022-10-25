@@ -38,7 +38,7 @@ module.exports = {
     },
     update: (req, res) => {
 
-        let adsID = req.body.aID
+        let adsID = req.body.aid
         let objId = new ObjectID(adsID);
 
         let adInfo = {
@@ -51,7 +51,7 @@ module.exports = {
             ad_admin: req.body.admin_id
                 // updateDate: Date.now()
         }
-        Ads.findByIdAndUpdate(objId, { $set: adInfo }).then(post => {
+        Ads.findByIdAndUpdate(adsID, { $set: adInfo }).then(post => {
             res.json({ message: "Ad information updated" })
         }).catch(error => {
             res.json({ error: error })

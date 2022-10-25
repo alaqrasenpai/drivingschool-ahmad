@@ -9,8 +9,36 @@ module.exports = {
             res.json({ error: error })
         })
     },
+    getAllStudents: (req, res) => {
+        Students.find({ is_student: 1 }).then(Students => {
+            res.json(Students)
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
+    getAllGuests: (req, res) => {
+        Students.find({ is_student: 0 }).then(Students => {
+            res.json(Students)
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
     count: (req, res) => {
         Students.find({}).then(Students => {
+            res.json({ "Count": Students.length })
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
+    countguests: (req, res) => {
+        Students.find({ is_student: 0 }).then(Students => {
+            res.json({ "Count": Students.length })
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
+    countstudents: (req, res) => {
+        Students.find({ is_student: 1 }).then(Students => {
             res.json({ "Count": Students.length })
         }).catch(error => {
             res.json({ error: error })
@@ -26,6 +54,20 @@ module.exports = {
             res.json({ error: error })
         })
     },
+    showstudent: (req, res) => {
+        Students.find({ is_student: 1 }).then(Students => {
+            res.json(Students)
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
+    showguests: (req, res) => {
+        Students.find({ is_student: 0 }).then(Students => {
+            res.json(Students)
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
     update: (req, res) => {
         let sID = req.body.serialid
         let objId = new ObjectID(sID);
@@ -37,6 +79,8 @@ module.exports = {
             Phone_number: req.body.phonenumber,
             SerialId: objId,
             licens_type: req.body.licenstype,
+            is_student: req.body.isstudent
+
 
         }
         Students.findByIdAndUpdate(studentId, { $set: studnetInfo }).then(post => {
@@ -63,6 +107,7 @@ module.exports = {
             Phone_number: req.body.phonenumber,
             SerialId: objId,
             licens_type: req.body.licenstype,
+            is_student: req.body.isstudent
         })
         studnet.save((error) => {
             if (error)
