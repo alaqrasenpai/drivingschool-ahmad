@@ -27,7 +27,24 @@ module.exports = {
             res.json({ error: error })
         })
     },
+    quastionWithAnswers: (req, res) => {
+        let quastionId = new ObjectID(req.body.qid);
+        console.log("hello world");
+        Quastion.aggregate([
+            { $match: { _id: quastionId } },
+            {
+                $lookup: {
+                    from: "answers",
+                    localField: "_id",
+                    foreignField: "QUASTION_ID",
+                    as: "quastion_answers"
+                }
+            }
+        ]).exec(function(err, r) {
+            res.json(r);
+        })
 
+    },
     showWithAnswers: (req, res) => {
         // let quastionId = new ObjectID(req.body.qid);
         console.log("hello world");
@@ -81,7 +98,7 @@ module.exports = {
             if (error)
                 res.json({ error: error })
             else {
-                res.json({ message: "quastion Added" })
+                res.json({ message: quastion._id })
             }
         })
     }
