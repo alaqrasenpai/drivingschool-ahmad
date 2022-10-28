@@ -6,6 +6,7 @@ const router = require("express").Router(),
     StudentsRouter = require("./students"),
     TurialRouter = require("./tutorial"),
     AdsRouter = require("./ads")
+ExamRouter = require("./Exam")
 
 router.use('/answers', AnswerRouter)
 router.use('/quastions', QuastionRouter)
@@ -14,6 +15,7 @@ router.use('/students', StudentsRouter)
 router.use('/trainers', TrainersRouter)
 router.use('/ads', AdsRouter)
 router.use('/tutorial', TurialRouter)
+router.use('/exam', ExamRouter)
 
 
 module.exports = router

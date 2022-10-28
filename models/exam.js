@@ -1,17 +1,15 @@
 const mongoose = require("mongoose"),
     { Schema } = mongoose
-const QuastionsCollectiom = new Schema({
-    QUASTION_ID: {
-        type: Number,
-        required: true,
-    },
-    Answers: [AnswersCollection]
-})
+
 const AnswersCollection = new Schema({
     ANSWER_ID: {
-        type: Number,
+        type: String,
         required: true,
         trim: true,
+    },
+    ANSWER_TEXT: {
+        type: String,
+        required: true
     },
     STATUS: {
         type: Number,
@@ -19,18 +17,37 @@ const AnswersCollection = new Schema({
     }
 
 })
+const QuastionsCollectiom = new Schema({
+    QUASTION_ID: {
+        type: String,
+        required: true,
+    },
+    QUASTION_TEXT: {
+        type: String,
+
+    },
+    Answers: [AnswersCollection]
+})
+
 const ExamSchema = new Schema({
     ID: {
         type: Number
     },
     UserId: {
-        type: Number,
-        AnswersCollection: [
-            quastions
-        ],
+        type: mongoose.Schema.Types.ObjectId,
+
         required: true
     },
-    QUASTIONS: [QuastionsCollectiom]
+    QUASTIONS: [QuastionsCollectiom],
+    Grade: {
+        type: Number
+    },
+    TimeTaken: {
+        type: Number
+    },
+    createDate: {
+        type: Date
+    }
 
 
 })

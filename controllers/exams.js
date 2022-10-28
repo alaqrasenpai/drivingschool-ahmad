@@ -18,9 +18,7 @@ module.exports = {
         })
     },
     show: (req, res) => {
-        let examID = req.body.eID
-        let objId = new ObjectID(examID);
-        Exam.find(objId).then(Exam => {
+        Exam.findById(req.body.eID).then(Exam => {
             res.json({ Exam })
         }).catch(error => {
             res.json({ error: error })
@@ -29,24 +27,49 @@ module.exports = {
     showByUserId: (req, res) => {
         let userID = req.body.uID
         let objId = new ObjectID(userID);
-        Exam.findById({ UserId: objId }).then(Exam => {
-            res.json({ Exam })
+        Exam.find({ UserId: objId }).then(Exam => {
+            res.json(Exam)
         }).catch(error => {
             res.json({ error: error })
         })
     },
     update: (req, res) => {
+        let questionID = req.body.qid
+        var uid = req.body.uid;
+        var grade = req.body.grade;
+        var timetaken = req.body.timetaken;
+        var questionsGroup = [];
+        for (var i = 0; i < req.body.quastions.length; i++) {
+            var answersGroup = [];
 
-        let answerID = req.body.aid
-        let answerInfo = {
-            ANSWER_DATA: req.body.DATA,
-            QUASTION_ID: req.body.QUASTION_ID,
-            audio_url: req.body.audio_url,
-            STATUS: req.body.STATUS,
+            for (var j = 0; j < req.body.quastions[i].Answers.length; j++) {
+                answersGroup.push(
+                    new Object({
+                        ANSWER_ID: req.body.quastions[i].Answers[j].aid,
+                        ANSWER_TEXT: req.body.quastions[i].Answers[j].atext,
+                        STATUS: req.body.quastions[i].Answers[j].status
+                    })
+                )
+            }
+            var currentQuestion = new Object({
+                QUASTION_ID: req.body.quastions[i].quastionid,
+                QUASTION_TEXT: req.body.quastions[i].quastiontext,
+                Answers: answersGroup
+            });
+
+            questionsGroup.push(currentQuestion);
+        }
+
+
+        let examInfo = {
+            UserId: uid,
+            QUASTIONS: questionsGroup,
+            Grade: grade,
+            TimeTaken: timetaken,
             // updateDate: Date.now()
         }
-        Exam.findByIdAndUpdate(answerID, { $set: answerInfo }).then(post => {
-            res.json({ message: "Answer information updated" })
+        Exam.findByIdAndUpdate(questionID, { $set: examInfo }).then(post => {
+            res.json({ message: "question information updated" })
         }).catch(error => {
             res.json({ error: error })
         })
@@ -60,28 +83,48 @@ module.exports = {
         })
     },
     create: (req, res) => {
-        let answer = new Answer({
-            ANSWER_DATA: req.body.DATA,
-            QUASTION_ID: req.body.QUASTION_ID,
-            audio_url: req.body.audio_url,
-            STATUS: req.body.STATUS,
-            // createDate: Date.now(),
+
+
+
+        var uid = req.body.uid;
+        var grade = req.body.grade;
+        var timetaken = req.body.timetaken;
+        var questionsGroup = [];
+        for (var i = 0; i < req.body.quastions.length; i++) {
+            var answersGroup = [];
+
+            for (var j = 0; j < req.body.quastions[i].Answers.length; j++) {
+                answersGroup.push(
+                    new Object({
+                        ANSWER_ID: req.body.quastions[i].Answers[j].aid,
+                        ANSWER_TEXT: req.body.quastions[i].Answers[j].atext,
+                        STATUS: req.body.quastions[i].Answers[j].status
+                    })
+                )
+            }
+            var currentQuestion = new Object({
+                QUASTION_ID: req.body.quastions[i].quastionid,
+                QUASTION_TEXT: req.body.quastions[i].quastiontext,
+                Answers: answersGroup
+            });
+
+            questionsGroup.push(currentQuestion);
+        }
+        let exam = new Exam({
+            UserId: uid,
+            QUASTIONS: questionsGroup,
+            Grade: grade,
+            TimeTaken: timetaken,
+            createDate: Date.now(),
             // updateDate: Date.now()
         })
-        answer.save((error) => {
+        exam.save((error) => {
             if (error)
                 res.json({ error: error })
             else {
-                res.json({ message: "Answer Added" })
+                res.json({ message: "exam Added" })
             }
         })
-    },
-    showByQuastionId: (req, res) => {
-        let qID = req.body.qid
-        Answer.find({ QUASTION_ID: qID }).then(Answer => {
-            res.json(Answer)
-        }).catch(error => {
-            res.json({ error: error })
-        })
     }
+
 }
