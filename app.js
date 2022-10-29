@@ -4,10 +4,15 @@ let mongoose = require("mongoose"),
 const expressSession = require('express-session')
 const cookiePrser = require('cookie-parser')
 const passport = require('passport')
+const cors = require('cors')
+
+
 
 // const decree = require('./models/decree');
 
 const router = require("./routes/index")
+
+
 
 mongoose.Promise = global.Promise
 mongoose.connect('mongodb://localhost:27017/blogs', {
@@ -21,6 +26,7 @@ app.use(expressSession({
     resave: true,
     cookie: { maxAge: 6000 }
 }))
+app.use(cors());
 
 app.use(passport.initialize())
 app.use(passport.session())

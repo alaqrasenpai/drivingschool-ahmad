@@ -22,6 +22,10 @@ const QuastiontSchema = new Schema({
         type: String,
         trim: true,
         required: true
+    },
+    lang: {
+        type: String,
+        trim: true
     }
 
 

@@ -60,6 +60,42 @@ module.exports = {
         })
 
     },
+    showarabicqa: (req, res) => {
+        // let quastionId = new ObjectID(req.body.qid);
+        console.log("hello world");
+        Quastion.aggregate([
+            { $match: { lang: "ar" } },
+            {
+                $lookup: {
+                    from: "answers",
+                    localField: "_id",
+                    foreignField: "QUASTION_ID",
+                    as: "quastion_answers"
+                }
+            }
+        ]).exec(function(err, r) {
+            res.json(r);
+        })
+
+    },
+    showhebrewqa: (req, res) => {
+        // let quastionId = new ObjectID(req.body.qid);
+        console.log("hello world");
+        Quastion.aggregate([
+            { $match: { lang: "he" } },
+            {
+                $lookup: {
+                    from: "answers",
+                    localField: "_id",
+                    foreignField: "QUASTION_ID",
+                    as: "quastion_answers"
+                }
+            }
+        ]).exec(function(err, r) {
+            res.json(r);
+        })
+
+    },
 
     update: (req, res) => {
 
@@ -69,6 +105,8 @@ module.exports = {
             PHOTO_URL: req.body.PHOTO_URL,
             audio_url: req.body.audio_url,
             licens_type: req.body.licens_type,
+            lang: req.body.lang
+
             // updateDate: Date.now()
         }
         Quastion.findByIdAndUpdate(quastionID, { $set: quastionInfo }).then(post => {
@@ -91,8 +129,9 @@ module.exports = {
             PHOTO_URL: req.body.PHOTO_URL,
             audio_url: req.body.audio_url,
             licens_type: req.body.licens_type,
-            // createDate: Date.now(),
-            // updateDate: Date.now()
+            lang: req.body.lang
+                // createDate: Date.now(),
+                // updateDate: Date.now()
         })
         quastion.save((error) => {
             if (error)
