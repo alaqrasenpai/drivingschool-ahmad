@@ -35,6 +35,8 @@ module.exports = {
     },
     update: (req, res) => {
         let questionID = req.body.qid
+
+
         var uid = req.body.uid;
         var grade = req.body.grade;
         var timetaken = req.body.timetaken;
@@ -45,15 +47,20 @@ module.exports = {
             for (var j = 0; j < req.body.quastions[i].Answers.length; j++) {
                 answersGroup.push(
                     new Object({
-                        ANSWER_ID: req.body.quastions[i].Answers[j].aid,
-                        ANSWER_TEXT: req.body.quastions[i].Answers[j].atext,
+                        ANSWER_ID: req.body.quastions[i].Answers[j].ANSWER_ID,
+                        ANSWER_DATA: req.body.quastions[i].Answers[j].ANSWER_DATA,
+                        audio_url: req.body.quastions[i].Answers[j].audio_url,
+                        QUASTION_ID: req.body.quastions[i].Answers[j].QUASTION_ID,
                         STATUS: req.body.quastions[i].Answers[j].status
                     })
                 )
             }
             var currentQuestion = new Object({
-                QUASTION_ID: req.body.quastions[i].quastionid,
-                QUASTION_TEXT: req.body.quastions[i].quastiontext,
+                QUASTION_ID: req.body.quastions[i].QUASTION_ID,
+                QUASTION_DATA: req.body.quastions[i].QUASTION_DATA,
+                PHOTO_URL: req.body.quastions[i].PHOTO_URL,
+                audio_url: req.body.quastions[i].audio_url,
+                licens_type: req.body.quastions[i].licens_type,
                 Answers: answersGroup
             });
 
@@ -62,10 +69,10 @@ module.exports = {
 
 
         let examInfo = {
-            UserId: uid,
-            QUASTIONS: questionsGroup,
-            Grade: grade,
-            TimeTaken: timetaken,
+            uid: uid,
+            quastions: questionsGroup,
+            grade: grade,
+            timetaken: timetaken,
             // updateDate: Date.now()
         }
         Exam.findByIdAndUpdate(questionID, { $set: examInfo }).then(post => {
@@ -96,25 +103,30 @@ module.exports = {
             for (var j = 0; j < req.body.quastions[i].Answers.length; j++) {
                 answersGroup.push(
                     new Object({
-                        ANSWER_ID: req.body.quastions[i].Answers[j].aid,
-                        ANSWER_TEXT: req.body.quastions[i].Answers[j].atext,
+                        ANSWER_ID: req.body.quastions[i].Answers[j].ANSWER_ID,
+                        ANSWER_DATA: req.body.quastions[i].Answers[j].ANSWER_DATA,
+                        audio_url: req.body.quastions[i].Answers[j].audio_url,
+                        QUASTION_ID: req.body.quastions[i].Answers[j].QUASTION_ID,
                         STATUS: req.body.quastions[i].Answers[j].status
                     })
                 )
             }
             var currentQuestion = new Object({
-                QUASTION_ID: req.body.quastions[i].quastionid,
-                QUASTION_TEXT: req.body.quastions[i].quastiontext,
+                QUASTION_ID: req.body.quastions[i].QUASTION_ID,
+                QUASTION_DATA: req.body.quastions[i].QUASTION_DATA,
+                PHOTO_URL: req.body.quastions[i].PHOTO_URL,
+                audio_url: req.body.quastions[i].audio_url,
+                licens_type: req.body.quastions[i].licens_type,
                 Answers: answersGroup
             });
 
             questionsGroup.push(currentQuestion);
         }
         let exam = new Exam({
-            UserId: uid,
-            QUASTIONS: questionsGroup,
-            Grade: grade,
-            TimeTaken: timetaken,
+            uid: uid,
+            quastions: questionsGroup,
+            grade: grade,
+            timetaken: timetaken,
             createDate: Date.now(),
             // updateDate: Date.now()
         })

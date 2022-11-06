@@ -7,9 +7,15 @@ const AnswersCollection = new Schema({
         required: true,
         trim: true,
     },
-    ANSWER_TEXT: {
+    ANSWER_DATA: {
         type: String,
         required: true
+    },
+    audio_url: {
+        type: String
+    },
+    QUASTION_ID: {
+        type: String
     },
     STATUS: {
         type: Number,
@@ -22,9 +28,18 @@ const QuastionsCollectiom = new Schema({
         type: String,
         required: true,
     },
-    QUASTION_TEXT: {
+    QUASTION_DATA: {
         type: String,
 
+    },
+    PHOTO_URL: {
+        type: String
+    },
+    audio_url: {
+        type: String
+    },
+    licens_type: {
+        type: String
     },
     Answers: [AnswersCollection]
 })
@@ -33,16 +48,16 @@ const ExamSchema = new Schema({
     ID: {
         type: Number
     },
-    UserId: {
+    uid: {
         type: mongoose.Schema.Types.ObjectId,
 
         required: true
     },
-    QUASTIONS: [QuastionsCollectiom],
-    Grade: {
+    quastions: [QuastionsCollectiom],
+    grade: {
         type: Number
     },
-    TimeTaken: {
+    timetaken: {
         type: Number
     },
     createDate: {
