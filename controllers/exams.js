@@ -107,7 +107,7 @@ module.exports = {
                         ANSWER_DATA: req.body.quastions[i].Answers[j].ANSWER_DATA,
                         audio_url: req.body.quastions[i].Answers[j].audio_url,
                         QUASTION_ID: req.body.quastions[i].Answers[j].QUASTION_ID,
-                        STATUS: req.body.quastions[i].Answers[j].status
+                        STATUS: req.body.quastions[i].Answers[j].STATUS
                     })
                 )
             }
