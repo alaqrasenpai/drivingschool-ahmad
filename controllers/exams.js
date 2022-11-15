@@ -10,6 +10,13 @@ module.exports = {
             res.json({ error: error })
         })
     },
+    indexMini: (req, res) => {
+        Exam.find({}, { UserId: 1, Grade: 1, TimeTaken: 1 }).then(Exam => {
+            res.json(Exam)
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
     count: (req, res) => {
         Exam.find({}).then(Exam => {
             res.json({ "Count": Exam.length })
@@ -24,10 +31,26 @@ module.exports = {
             res.json({ error: error })
         })
     },
+    showMini: (req, res) => {
+        Exam.findById(req.body.eID, { UserId: 1, Grade: 1, TimeTaken: 1 }).then(Exam => {
+            res.json({ Exam })
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
     showByUserId: (req, res) => {
         let userID = req.body.uID
         let objId = new ObjectID(userID);
         Exam.find({ UserId: objId }).then(Exam => {
+            res.json(Exam)
+        }).catch(error => {
+            res.json({ error: error })
+        })
+    },
+    showByUserIdMini: (req, res) => {
+        let userID = req.body.uID
+        let objId = new ObjectID(userID);
+        Exam.find({ UserId: objId }, { UserId: 1, Grade: 1, TimeTaken: 1 }).then(Exam => {
             res.json(Exam)
         }).catch(error => {
             res.json({ error: error })
