@@ -11,7 +11,7 @@ module.exports = {
         })
     },
     indexMini: (req, res) => {
-        Exam.find({}, { UserId: 1, Grade: 1, TimeTaken: 1 }).then(Exam => {
+        Exam.find({}, { uid: 1, grade: 1, timetaken: 1 }).then(Exam => {
             res.json(Exam)
         }).catch(error => {
             res.json({ error: error })
@@ -32,7 +32,7 @@ module.exports = {
         })
     },
     showMini: (req, res) => {
-        Exam.findById(req.body.eID, { UserId: 1, Grade: 1, TimeTaken: 1 }).then(Exam => {
+        Exam.findById(req.body.eID, { uid: 1, grade: 1, timetaken: 1 }).then(Exam => {
             res.json({ Exam })
         }).catch(error => {
             res.json({ error: error })
@@ -40,6 +40,7 @@ module.exports = {
     },
     showByUserId: (req, res) => {
         let userID = req.body.uID
+        console.log(userID);
         let objId = new ObjectID(userID);
         Exam.find({ UserId: objId }).then(Exam => {
             res.json(Exam)
@@ -50,7 +51,7 @@ module.exports = {
     showByUserIdMini: (req, res) => {
         let userID = req.body.uID
         let objId = new ObjectID(userID);
-        Exam.find({ UserId: objId }, { UserId: 1, Grade: 1, TimeTaken: 1 }).then(Exam => {
+        Exam.find({ UserId: userID }, { uid: 1, grade: 1, timetaken: 1 }).then(Exam => {
             res.json(Exam)
         }).catch(error => {
             res.json({ error: error })
